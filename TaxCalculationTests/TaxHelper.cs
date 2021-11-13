@@ -53,14 +53,21 @@ namespace TaxCalculationTests
         private static decimal GetLevel2Tax(decimal income)
         {
             var result = 0m;
-            if (income > 540000 && income <= 1210000)
+
+            var taxRate = new TaxRate()
             {
-                result = (income - 540000) * 0.12m;
+                Lower = 540000,
+                Upper = 1210000,
+                Rate = 0.12m,
+            };
+            if (income > taxRate.Lower && income <= taxRate.Upper)
+            {
+                result = (income - taxRate.Lower) * taxRate.Rate;
             }
 
-            if (income > 1210000)
+            if (income > taxRate.Upper)
             {
-                result = (1210000 - 540000) * 0.12m;
+                result = (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
             }
 
             return result;
