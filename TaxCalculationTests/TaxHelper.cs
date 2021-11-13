@@ -26,31 +26,13 @@ namespace TaxCalculationTests
                 Upper =2420000,
                 Rate = 0.2m,
             });
-            // if (income > 1210000 && income <= 2420000)
-            // {
-            //     result += (income - 1210000) * 0.2m;
-            // }
-            //
-            // if (income > 2420000)
-            // {
-            //     result += (2420000 - 1210000) * 0.2m;
-            // }
             result += GetLevel1Tax(income, new TaxRate()
             {
                 Lower = 2420000,
                 Upper =4530000 ,
                 Rate = 0.3m,
             });
-            // if (income > 2420000 && income <= 4530000)
-            // {
-            //     result += (income - 2420000) * 0.3m;
-            // }
-            //
-            // if (income > 4530000)
-            // {
-            //     result += (4530000 - 2420000) * 0.3m;
-            // }
-            
+
             result += GetLevel1Tax(income, new TaxRate()
             {
                 Lower = 4530000,
@@ -58,27 +40,12 @@ namespace TaxCalculationTests
                 Rate = 0.4m,
             });
 
-            // if (income > 4530000 && income <= 10310000)
-            // {
-            //     result += (income - 4530000) * 0.4m;
-            // }
-            //
-            // if (income > 10310000)
-            // {
-            //     result += (10310000 - 4530000) * 0.4m;
-            // }
-            
             result += GetLevel1Tax(income, new TaxRate()
             {
                 Lower = 10310000,
                 Upper = decimal.MaxValue,
                 Rate = 0.5m,
             });
-
-            // if (income > 10310000)
-            // {
-            //     result += (income - 10310000) * 0.5m;
-            // }
 
 
             return result;
