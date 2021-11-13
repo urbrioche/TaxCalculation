@@ -58,23 +58,7 @@ namespace TaxCalculationTests
                 Upper = 1210000,
                 Rate = 0.12m,
             };
-            return GetTaxAmount(income, taxRate);
-        }
-
-        private static decimal GetTaxAmount(decimal income, TaxRate taxRate)
-        {
-            var result = 0m;
-            if (income > taxRate.Lower && income <= taxRate.Upper)
-            {
-                result = (income - taxRate.Lower) * taxRate.Rate;
-            }
-
-            if (income > taxRate.Upper)
-            {
-                result = (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
-            }
-
-            return result;
+            return taxRate.GetTaxAmount(income);
         }
 
         private static decimal GetLevel1Tax(decimal income)
@@ -87,7 +71,7 @@ namespace TaxCalculationTests
                 Rate = 0.05m,
             };
 
-            return GetTaxAmount(income, taxRate);
+            return taxRate.GetTaxAmount(income);
 
             // decimal result = 0;
             // if (income > taxRate.Lower && income <= taxRate.Upper)
@@ -109,5 +93,21 @@ namespace TaxCalculationTests
         public decimal Lower { get; set; }
         public decimal Upper { get; set; }
         public decimal Rate { get; set; }
+
+        public decimal GetTaxAmount(decimal income)
+        {
+            var result = 0m;
+            if (income > Lower && income <= Upper)
+            {
+                result = (income - Lower) * Rate;
+            }
+
+            if (income > Upper)
+            {
+                result = (Upper - Lower) * Rate;
+            }
+
+            return result;
+        }
     }
 }
