@@ -4,18 +4,13 @@ namespace TaxCalculationTests
     {
         public static decimal GetTaxResult(decimal income)
         {
-            var result = GetLevel1Tax(income);
+            decimal result = 0;
+            var level1Tax = GetLevel1Tax(income);
 
-            if (income > 540000 && income <= 1210000)
-            {
-                result += (income - 540000) * 0.12m;
-            }
+            result += level1Tax;
+            var level2Tax = GetLevel2Tax(income);
 
-            if (income > 1210000)
-            {
-                result += (1210000 - 540000) * 0.12m;
-            }
-
+            result += level2Tax;
             if (income > 1210000 && income <= 2420000)
             {
                 result += (income - 1210000) * 0.2m;
@@ -51,6 +46,22 @@ namespace TaxCalculationTests
                 result += (income - 10310000) * 0.5m;
             }
 
+
+            return result;
+        }
+
+        private static decimal GetLevel2Tax(decimal income)
+        {
+            var result = 0m;
+            if (income > 540000 && income <= 1210000)
+            {
+                result = (income - 540000) * 0.12m;
+            }
+
+            if (income > 1210000)
+            {
+                result = (1210000 - 540000) * 0.12m;
+            }
 
             return result;
         }
