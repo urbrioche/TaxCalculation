@@ -5,12 +5,21 @@ namespace TaxCalculationTests
         public static decimal GetTaxResult(decimal income)
         {
             decimal result = 0;
-            var level1Tax = GetLevel1Tax(income);
 
-            result += level1Tax;
-            var level2Tax = GetLevel2Tax(income);
+            result += GetLevel1Tax(income, new TaxRate()
+            {
+                Lower = 0m,
+                Upper = 540000m,
+                Rate = 0.05m,
+            });
 
-            result += level2Tax;
+            result += GetLevel2Tax(income, new TaxRate()
+            {
+                Lower = 540000,
+                Upper = 1210000,
+                Rate = 0.12m,
+            });
+            
             if (income > 1210000 && income <= 2420000)
             {
                 result += (income - 1210000) * 0.2m;
@@ -50,27 +59,13 @@ namespace TaxCalculationTests
             return result;
         }
 
-        private static decimal GetLevel2Tax(decimal income)
+        private static decimal GetLevel2Tax(decimal income, TaxRate taxRate)
         {
-            var taxRate = new TaxRate()
-            {
-                Lower = 540000,
-                Upper = 1210000,
-                Rate = 0.12m,
-            };
             return taxRate.GetTaxAmount(income);
         }
 
-        private static decimal GetLevel1Tax(decimal income)
+        private static decimal GetLevel1Tax(decimal income, TaxRate taxRate)
         {
-
-            var taxRate = new TaxRate()
-            {
-                Lower = 0m,
-                Upper = 540000m,
-                Rate = 0.05m,
-            };
-
             return taxRate.GetTaxAmount(income);
 
             // decimal result = 0;
@@ -96,18 +91,17 @@ namespace TaxCalculationTests
 
         public decimal GetTaxAmount(decimal income)
         {
-            var result = 0m;
             if (income > Lower && income <= Upper)
             {
-                result = (income - Lower) * Rate;
+                return (income - Lower) * Rate;
             }
 
             if (income > Upper)
             {
-                result = (Upper - Lower) * Rate;
+                return (Upper - Lower) * Rate;
             }
 
-            return result;
+            return 0;
         }
     }
 }
