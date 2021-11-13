@@ -59,17 +59,31 @@ namespace TaxCalculationTests
         {
             decimal result = 0;
 
-            if (income > 0 && income <= 540000)
+            var taxRate = new TaxRate()
             {
-                result += (income - 0) * 0.05m;
+                Lower = 0m,
+                Upper = 540000m,
+                Rate = 0.05m,
+            };
+
+            if (income > taxRate.Lower && income <= taxRate.Upper)
+            {
+                result += (income - taxRate.Lower) * taxRate.Rate;
             }
 
-            if (income > 540000)
+            if (income > taxRate.Upper)
             {
-                result += (540000 - 0) * 0.05m;
+                result += (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
             }
 
             return result;
         }
+    }
+
+    public class TaxRate
+    {
+        public decimal Lower { get; set; }
+        public decimal Upper { get; set; }
+        public decimal Rate { get; set; }
     }
 }
