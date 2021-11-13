@@ -3,16 +3,9 @@ using System.Linq;
 
 namespace TaxCalculationTests
 {
-    public class TaxHelper
+    public class Repository
     {
-        public static decimal GetTaxResult(decimal income)
-        {
-            var rates = GetTaxRates();
-
-            return rates.Sum(rate => rate.GetTaxAmount(income));
-        }
-
-        private static IEnumerable<TaxRate> GetTaxRates()
+        public IEnumerable<TaxRate> GetTaxRates()
         {
             var rate1 = new TaxRate()
             {
@@ -56,6 +49,17 @@ namespace TaxCalculationTests
                 rate1, rate2, rate3, rate4, rate5, rate6
             };
             return rates;
+        }
+    }
+
+    public class TaxHelper
+    {
+        public static decimal GetTaxResult(decimal income)
+        {
+            var repository = new Repository();
+            var rates = repository.GetTaxRates();
+
+            return rates.Sum(rate => rate.GetTaxAmount(income));
         }
     }
 
