@@ -50,7 +50,7 @@ namespace TaxCalculationTests
                 rate1,rate2,rate3,rate4,rate5,rate6
             };
 
-            return rates.Sum(rate => GetLevel1Tax(income, rate));
+            return rates.Sum(rate => rate.GetTaxAmount(income));
         }
 
         private static decimal GetLevel1Tax(decimal income, TaxRate taxRate)
