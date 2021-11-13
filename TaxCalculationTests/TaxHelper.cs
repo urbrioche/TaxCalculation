@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TaxCalculationTests
@@ -6,8 +7,13 @@ namespace TaxCalculationTests
     {
         public static decimal GetTaxResult(decimal income)
         {
-            decimal result = 0;
+            var rates = GetTaxRates();
 
+            return rates.Sum(rate => rate.GetTaxAmount(income));
+        }
+
+        private static IEnumerable<TaxRate> GetTaxRates()
+        {
             var rate1 = new TaxRate()
             {
                 Lower = 0m,
@@ -44,13 +50,12 @@ namespace TaxCalculationTests
                 Upper = decimal.MaxValue,
                 Rate = 0.5m,
             };
-            
+
             var rates = new[]
             {
-                rate1,rate2,rate3,rate4,rate5,rate6
+                rate1, rate2, rate3, rate4, rate5, rate6
             };
-
-            return rates.Sum(rate => rate.GetTaxAmount(income));
+            return rates;
         }
     }
 
