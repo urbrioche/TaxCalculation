@@ -52,24 +52,6 @@ namespace TaxCalculationTests
 
             return rates.Sum(rate => rate.GetTaxAmount(income));
         }
-
-        private static decimal GetLevel1Tax(decimal income, TaxRate taxRate)
-        {
-            return taxRate.GetTaxAmount(income);
-
-            // decimal result = 0;
-            // if (income > taxRate.Lower && income <= taxRate.Upper)
-            // {
-            //     result += (income - taxRate.Lower) * taxRate.Rate;
-            // }
-            //
-            // if (income > taxRate.Upper)
-            // {
-            //     result += (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
-            // }
-            //
-            // return result;
-        }
     }
 
     public class TaxRate
