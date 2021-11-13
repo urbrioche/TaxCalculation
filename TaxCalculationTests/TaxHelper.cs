@@ -52,14 +52,18 @@ namespace TaxCalculationTests
 
         private static decimal GetLevel2Tax(decimal income)
         {
-            var result = 0m;
-
             var taxRate = new TaxRate()
             {
                 Lower = 540000,
                 Upper = 1210000,
                 Rate = 0.12m,
             };
+            return GetTaxAmount(income, taxRate);
+        }
+
+        private static decimal GetTaxAmount(decimal income, TaxRate taxRate)
+        {
+            var result = 0m;
             if (income > taxRate.Lower && income <= taxRate.Upper)
             {
                 result = (income - taxRate.Lower) * taxRate.Rate;
@@ -75,7 +79,6 @@ namespace TaxCalculationTests
 
         private static decimal GetLevel1Tax(decimal income)
         {
-            decimal result = 0;
 
             var taxRate = new TaxRate()
             {
@@ -84,17 +87,20 @@ namespace TaxCalculationTests
                 Rate = 0.05m,
             };
 
-            if (income > taxRate.Lower && income <= taxRate.Upper)
-            {
-                result += (income - taxRate.Lower) * taxRate.Rate;
-            }
+            return GetTaxAmount(income, taxRate);
 
-            if (income > taxRate.Upper)
-            {
-                result += (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
-            }
-
-            return result;
+            // decimal result = 0;
+            // if (income > taxRate.Lower && income <= taxRate.Upper)
+            // {
+            //     result += (income - taxRate.Lower) * taxRate.Rate;
+            // }
+            //
+            // if (income > taxRate.Upper)
+            // {
+            //     result += (taxRate.Upper - taxRate.Lower) * taxRate.Rate;
+            // }
+            //
+            // return result;
         }
     }
 
