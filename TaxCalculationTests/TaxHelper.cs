@@ -59,11 +59,6 @@ namespace TaxCalculationTests
             return result;
         }
 
-        private static decimal GetLevel2Tax(decimal income, TaxRate taxRate)
-        {
-            return taxRate.GetTaxAmount(income);
-        }
-
         private static decimal GetLevel1Tax(decimal income, TaxRate taxRate)
         {
             return taxRate.GetTaxAmount(income);
