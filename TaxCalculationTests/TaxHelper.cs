@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace TaxCalculationTests
 {
     public class TaxHelper
@@ -12,45 +14,52 @@ namespace TaxCalculationTests
                 Upper = 540000m,
                 Rate = 0.05m,
             };
-            result += GetLevel1Tax(income, rate1);
-
             var rate2 = new TaxRate()
             {
                 Lower = 540000,
                 Upper = 1210000,
                 Rate = 0.12m,
             };
-            result += GetLevel1Tax(income, rate2);
-
             var rate3 = new TaxRate()
             {
                 Lower = 1210000,
-                Upper =2420000,
+                Upper = 2420000,
                 Rate = 0.2m,
             };
-            result += GetLevel1Tax(income, rate3);
             var rate4 = new TaxRate()
             {
                 Lower = 2420000,
-                Upper =4530000 ,
+                Upper = 4530000,
                 Rate = 0.3m,
             };
-            result += GetLevel1Tax(income, rate4);
-
             var rate5 = new TaxRate()
             {
                 Lower = 4530000,
                 Upper = 10310000,
                 Rate = 0.4m,
             };
-            result += GetLevel1Tax(income, rate5);
-
             var rate6 = new TaxRate()
             {
                 Lower = 10310000,
                 Upper = decimal.MaxValue,
                 Rate = 0.5m,
             };
+            
+            var rates = new[]
+            {
+                rate1,rate2,rate3,rate4,rate5,rate6
+            };
+
+            return rates.Sum(rate => GetLevel1Tax(income, rate));
+            result += GetLevel1Tax(income, rate1);
+
+            result += GetLevel1Tax(income, rate2);
+
+            result += GetLevel1Tax(income, rate3);
+            result += GetLevel1Tax(income, rate4);
+
+            result += GetLevel1Tax(income, rate5);
+
             result += GetLevel1Tax(income, rate6);
 
 
