@@ -13,7 +13,7 @@ namespace TaxCalculationTests
                 Rate = 0.05m,
             });
 
-            result += GetLevel2Tax(income, new TaxRate()
+            result += GetLevel1Tax(income, new TaxRate()
             {
                 Lower = 540000,
                 Upper = 1210000,
