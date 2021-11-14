@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 
-namespace TaxCalculationTests
+namespace TaxCalculationLibrary
 {
     public class Repository
     {
@@ -49,39 +48,6 @@ namespace TaxCalculationTests
                 rate1, rate2, rate3, rate4, rate5, rate6
             };
             return rates;
-        }
-    }
-
-    public class TaxHelper
-    {
-        public static decimal GetTaxResult(decimal income)
-        {
-            var repository = new Repository();
-            var rates = repository.GetTaxRates();
-
-            return rates.Sum(rate => rate.GetTaxAmount(income));
-        }
-    }
-
-    public class TaxRate
-    {
-        public decimal Lower { get; set; }
-        public decimal Upper { get; set; }
-        public decimal Rate { get; set; }
-
-        public decimal GetTaxAmount(decimal income)
-        {
-            if (income > Lower && income <= Upper)
-            {
-                return (income - Lower) * Rate;
-            }
-
-            if (income > Upper)
-            {
-                return (Upper - Lower) * Rate;
-            }
-
-            return 0;
         }
     }
 }
