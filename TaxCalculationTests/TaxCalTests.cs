@@ -4,14 +4,14 @@ using TaxCalculationLibrary;
 namespace TaxCalculationTests
 {
     [TestClass()]
-    public class TaxHelperTests
+    public class TaxCalTests
     {
         private TaxCalculation _taxCalculation;
 
         [TestInitialize]
         public void TestInit()
         {
-            _taxCalculation = new TaxCalculation(new Repository());
+            _taxCalculation = new TaxCalculation(new FakeRepository());
         }
         
         [TestMethod()]

@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using System.Linq;
 
 namespace TaxCalculationLibrary
 {
     public class TaxCalculation
     {
-        private readonly Repository _repository;
+        private readonly IRepository _repository;
 
-        public TaxCalculation(Repository repository)
+        public TaxCalculation(IRepository repository)
         {
             _repository = repository;
         }
